@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<title>Obliviate</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Modal-->
+<div id="modal-message">
+	<div class="menu">Choose your board</div>
+	<button id="4by4" type="button">4 X 4</button>
+	<button id="6by6" type="button">6 X 6</button>
+	<button id="8by8" type="button">8 X 8</button>
+</div>
+
+<!--Header-->
+<div id="header">
+	<img src="https://fontmeme.com/permalink/191016/00ca0384d933188a4133460391efc4bc.png" alt="harry-potter-font" border="0">
+	<!--Game Statistics-->
+	<div id="game-statistic">
+		<div id="statistic-right">Correct Guess: <div id="correct-guess" class="bold-text">0</div></div>
+		<div id="statistic-left">No of Clicks: <div id="no-of-clicks" class="bold-text">0</div></div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!--Restart Option-->
+<div class="play">
+	<input type="button" id="restart_btn" value="Restart" />
+</div>
+
+<!--Timer-->
+<div class="timer">
+	test
+</div>
+
+
+<!--Board-->
+<div id="canvas-game">
+	<div id="game-content"></div>
+</div>
+
+
+
+<!--Game Message-->
+<div id="game-message">
+	<div class="congrats-message">Congratulations, you have revealed all the images</div>
+	<button id="btnRestart" type="button">Restart</button>
+</div>
+
+<!-- Timer / ScoreBoard-->
+<div id="footer">
+    <div id="timer"></div>
+    <div id="score"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>

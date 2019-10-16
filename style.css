@@ -5,6 +5,22 @@ html,body{
 	background-image: url(game-images/hogwarts.jpg);
 }
 
+.menu {
+	font-size:20px;
+}
+
+.menu button,
+.btnRestart {
+	color: white;
+	font-size:20px;
+	background-color: black;
+	margin:10px;
+	padding:5px;
+	border-radius: 2px;
+	border: none;
+	cursor: pointer;
+}
+
 .play {
 	margin: auto;
 	padding-right:450px;
@@ -17,9 +33,20 @@ html,body{
 	margin-left: 50px;
 }
 
-.timer {
-	display: none;
+#centerHeader {
+	display: inline-block; 
+	margin: auto; 
+	width:40%;
+}
+
+#timer {
 	width:25%;
+	color: black;
+	font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+	font-size:55px;
+	padding-left:50px;
+	float:right;
+	margin-top:15px;
 }
 
 #no-of-clicks,
@@ -149,10 +176,12 @@ html,body{
 
 
 
-#game-message{
+#game-message,
+#score-message{
 	margin:0 auto;
 	font-size:20px;
-	background:#f7f5b5;
+	background:url(game-images/scroll.jpg) no-repeat;
+	background-size: 650px 600px;
 	padding:15px;
 	border:solid 1px #ccc;
 	border-radius:5px;

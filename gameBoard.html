@@ -10,15 +10,22 @@
 
 <!-- Modal-->
 <div id="modal-message">
-	<div class="menu">Choose your board</div>
-	<button id="4by4" type="button">4 X 4</button>
-	<button id="6by6" type="button">6 X 6</button>
-	<button id="8by8" type="button">8 X 8</button>
+	<div class="menu">Choose your board <br />
+		<button id="4by4" type="button">4 X 4</button>
+		<button id="6by6" type="button">6 X 6</button>
+		<button id="8by8" type="button">8 X 8</button>
+	</div>
 </div>
 
 <!--Header-->
 <div id="header">
-	<img src="https://fontmeme.com/permalink/191016/00ca0384d933188a4133460391efc4bc.png" alt="harry-potter-font" border="0">
+	<div id="centerHeader">
+		<img src="https://fontmeme.com/permalink/191016/00ca0384d933188a4133460391efc4bc.png" alt="harry-potter-font" border="0">
+	
+		<!--Timer-->
+		<span id="timer"></span>
+		<div class="clear"></div>
+	</div>
 	<!--Game Statistics-->
 	<div id="game-statistic">
 		<div id="statistic-right">Correct Guess: <div id="correct-guess" class="bold-text">0</div></div>
@@ -29,13 +36,9 @@
 
 <!--Restart Option-->
 <div class="play">
-	<input type="button" id="restart_btn" value="Restart" />
+	<input type="button" class="btnRestart" value="Restart" />
 </div>
 
-<!--Timer-->
-<div class="timer">
-	test
-</div>
 
 
 <!--Board-->
@@ -45,16 +48,19 @@
 
 
 
-<!--Game Message-->
+<!--Congrats Message-->
 <div id="game-message">
-	<div class="congrats-message">Congratulations, you have revealed all the images</div>
-	<button id="btnRestart" type="button">Restart</button>
+	<div class="congrats-message">You're a wizzard, you have revealed all the images!</div>
+	<button class="btnRestart" type="button">Restart</button>
 </div>
 
-<!-- Timer / ScoreBoard-->
-<div id="footer">
-    <div id="timer"></div>
-    <div id="score"></div>
+
+<!--Score Message-->
+<div id="score-message">
+	<div class="end-game-message"><b>Maybe try Felix Felicis next time!</b></div>
+	<div class="game-stats">Correct Guesses: <div id="correct-guess-end" class="bold-text"></div></div>
+	<div class="game-stats">No of Clicks: <div id="no-of-clicks-end" class="bold-text"></div></div>
+	<button class="btnRestart" type="button">Restart</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

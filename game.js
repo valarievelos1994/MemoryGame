@@ -91,8 +91,8 @@ memory = {
 			$("#timer").html(minutes + ":" + seconds);
 
 			if (--timer <= 0) {
-				clearInterval(interval);
 				$("#timer").html("Petrificus Totalus!").css({"float" : "none", "padding-left" : "60px"});
+				clearInterval(interval);
 				memory.endGame();
 			}
 		}, 1000);		

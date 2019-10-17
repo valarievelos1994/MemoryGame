@@ -8,18 +8,22 @@ $(function(){
 		$("#game-message").hide();
 		$("#score-message").hide();
 		$("#timer").hide();
+		memory.correctGuess = 0;
+		$("#correct-guess").html(memory.correctGuess);
+		memory.clickCounter = 0;
+		$("#no-of-clicks").html(memory.clickCounter);
 		memory.modal();
 	});
 	
 });
 
 
-//game class
+//game object
 memory = {
 
 	//variables
 	timeOutRestore:  1000,
-	gameTime:  60 * 1,
+	gameTime: 0,
 	firstClick: true,
 	noOfBoxGame: 0,
 	boxIndexes: [],
@@ -27,6 +31,8 @@ memory = {
 	clickCounter: 0,
 	correctGuess:  0,
 	clickImages:  [],
+	interval: 0,
+	highScore: 0,
 	
 
 	// create modal 
@@ -35,29 +41,35 @@ memory = {
 		// 4 by 4
 		$("#4by4").on("click", function(){
 			memory.noOfBoxGame = 16;
+			memory.gameTime = 60 * 1;
 			memory.renderGameLayout();
 			$("#modal-message").hide();
+			$("#canvas-game").css({"width" : "50%"});
 		});
 
 		// 6 by 6
 		$("#6by6").on("click", function(){
 			memory.noOfBoxGame = 36;
+			memory.gameTime = 60 * 2.5;
 			memory.renderGameLayout();
 			$("#modal-message").hide();
+			$("#canvas-game").css({"width" : "70%"});
 		});
 
 		// 8 by 8
 		$("#8by8").on("click", function(){
 			memory.noOfBoxGame = 64;
+			memory.gameTime = 60 * 3;
 			memory.renderGameLayout();
 			$("#modal-message").hide();
+			$("#canvas-game").css({"width" : "100%"});
 		});
 	},
 	
 	//This will load the default game array and perform a shuffle
 	initData: function(){
         //Create 2 sets of matching indices for boxIndexes array
-
+		memory.boxIndexes = [];
         //Loop twice
         for(var x=0; x <=1;x++){
             //loop from 0 - number of game cards / 2 minus 1
@@ -81,18 +93,22 @@ memory = {
 	//timer functions
 	timer: function(duration){
 		var timer = duration;
-		var interval = setInterval(function () {
+		memory.interval = setInterval(function () {
 			minutes = parseInt(timer / 60, 10);
 			seconds = parseInt(timer % 60, 10);
 
 			minutes = minutes < 10 ? "0" + minutes : minutes;
 			seconds = seconds < 10 ? "0" + seconds : seconds;
 
+			finalMinute = (Math.floor((memory.gameTime - seconds) / 60));
+			finalSecond = Math.floor((memory.gameTime - seconds) % 60);
+
 			$("#timer").html(minutes + ":" + seconds);
+			$("#time-score").html(finalMinute + ":" + (finalSecond < 10 ? ("0" + finalSecond) : finalSecond) + "s");
+			$("#timer").show();
 
 			if (--timer <= 0) {
-				$("#timer").html("Petrificus Totalus!").css({"float" : "none", "padding-left" : "60px"});
-				clearInterval(interval);
+				clearInterval(memory.interval);
 				memory.endGame();
 			}
 		}, 1000);		
@@ -101,7 +117,7 @@ memory = {
 	buildGameBox: function(){
 		var cards = "";
 		var cardCover = "";
-		var restart = false;
+		var startTimer = memory.gameTime;
 
 		//load the images and image cover
 		for(var i = 1; i <= memory.noOfBoxGame; i++){
@@ -120,7 +136,7 @@ memory = {
 
 			// On first click ~ start timer, add restart btn
 			if(memory.firstClick){
-				memory.timer(memory.gameTime);
+				memory.timer(startTimer);
 				//$(".play").show();	
 			}
 
@@ -150,16 +166,20 @@ memory = {
 						
 						//if the game is completed then perform a reset
 						if(memory.correctGuess >= (memory.noOfBoxGame/2)){
-							memory.timer().clearInterval();
+							clearInterval(memory.interval);
 							$('#timer').hide();
 							$("#canvas-game, #game-statistic").fadeOut(1000); 
 							$("#game-message").addClass('animated bounceInDown').css('animation-delay', '1s').show(); 
-							
+							$("#no-of-clicks-score").html(memory.clickCounter);
+							//$("#time-score").html(memory.clickCounter);
+							memory.clearVariables();
 							memory.correctGuess = 0;
 							$("#correct-guess").html(memory.correctGuess);
 							memory.clickCounter = 0;
 							$("#no-of-clicks").html(memory.clickCounter);
-							memory.clearVariables();
+
+							var finish = true;
+							memory.score(finish);
 						}
 					}else{
 						//if not the same then close the image cover again.
@@ -181,9 +201,32 @@ memory = {
 		});
 	},
 
+	score: function(finish){
+		var tempScore = 0;
+		if(finish) {
+			tempScore += 50;
+		}
+		if(memory.clickCounter < memory.noOfBoxGame){
+			tempScore += 30;
+		} 
+		if(memory.clickCounter > memory.noOfBoxGame){
+			tempScore += 10
+		}
+
+		if(memory.highScore < tempScore){
+			memory.highScore = tempScore;
+			$('#best-score').html('You\'ve Caught the Golden Snitch! New High Score!');
+			var high_score = memory.highScore;
+			$('.score').html(high_score);
+		} else $('.score').html(tempScore);
+
+	},
+
 	endGame: function(){
+		$("#timer").html("Petrificus Totalus!").css({"float" : "none", "padding-left" : "60px"});
 		$("#canvas-game, #game-statistic").fadeOut(1000); 
-		$("#score-message").addClass('animated bounceInDown').css('animation-delay', '1s').show(); 
+		$("#score-message").addClass('animated bounceInDown').css('animation-delay', '1s').show();
+		memory.score(false);
 		memory.clearVariables();
 	},
 
@@ -197,7 +240,7 @@ memory = {
 		memory.correctGuess = 0;
 		memory.clickImages = [];
 		memory.timeOutRestore = 1000;
-		memory.gameTime = 60 * 1;
+		memory.gameTime = 60 * 1;	
 	},
 
 	//function to call main functions to render the game

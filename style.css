@@ -98,7 +98,6 @@ html,body{
 #canvas-game{
 	margin:0 auto;
 	text-align:left;
-	width:50%;
 	margin:auto;
 	margin-top:20px;
 	position:relative;
@@ -132,15 +131,22 @@ html,body{
 }
 
 .box-cover-wrapper_16{
-	z-index:100;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+	position: fixed;
+	grid-column-gap: 80px;
 }
 
 .box-cover-wrapper_36{
-	z-index:100;
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(9, 1fr);
+	position: fixed;
+}
+
+.box-cover-wrapper_64{
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	position: fixed;
 }
 
 
@@ -169,11 +175,20 @@ html,body{
 
 .box-image-wrapper_36 {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(9, 1fr);
 	position: fixed;
 }
 
+.box-image-wrapper_64 {
+	display: grid;
+	grid-template-columns: repeat(16, 1fr);
+	position: fixed;
+}
 
+.score,
+.best-score {
+	font-weight :bold;
+}
 
 
 #game-message,

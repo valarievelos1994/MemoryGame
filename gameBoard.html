@@ -11,9 +11,9 @@
 <!-- Modal-->
 <div id="modal-message">
 	<div class="menu">Choose your board <br />
-		<button id="4by4" type="button">4 X 4</button>
-		<button id="6by6" type="button">6 X 6</button>
-		<button id="8by8" type="button">8 X 8</button>
+		<button id="4by4" type="button">Easy</button>
+		<button id="6by6" type="button">Medium</button>
+		<button id="8by8" type="button">Hard</button>
 	</div>
 </div>
 
@@ -50,8 +50,13 @@
 
 <!--Congrats Message-->
 <div id="game-message">
-	<div class="congrats-message">You're a wizzard, you have revealed all the images!</div>
+	<div class="congrats-message">You're a wizzard, you have revealed all the images! </div>
+	<div class="score-board">
+		<div>No of Clicks: <div id="no-of-clicks-score" class="bold-text"></div></div>
+		<div>Time to Complete: <div id="time-score" class="bold-text"></div></div>
+		<div id="best-score"><div class="score"></div></div>
 	<button class="btnRestart" type="button">Restart</button>
+	</div>
 </div>
 
 
@@ -60,6 +65,7 @@
 	<div class="end-game-message"><b>Maybe try Felix Felicis next time!</b></div>
 	<div class="game-stats">Correct Guesses: <div id="correct-guess-end" class="bold-text"></div></div>
 	<div class="game-stats">No of Clicks: <div id="no-of-clicks-end" class="bold-text"></div></div>
+	<div>Overall Score<div class="score"></div></div>
 	<button class="btnRestart" type="button">Restart</button>
 </div>
 

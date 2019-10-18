@@ -6,13 +6,16 @@ $(function(){
 
 	$('#menuOption').on("click", function() {
 		clearInterval(memory.interval);
+		$('.play').hide();
 		$("#game-message").hide();
 		$("#score-message").hide();
 		$("#timer").hide();
+		$("#canvas-game, #game-statistic").fadeOut(1000); 
 		memory.correctGuess = 0;
 		$("#correct-guess").html(memory.correctGuess);
 		memory.clickCounter = 0;
 		$("#no-of-clicks").html(memory.clickCounter);
+		memory.clearVariables();
 		memory.modal();
 
 	$('.btnRestart').on("click", function() {
@@ -26,6 +29,7 @@ $(function(){
 		memory.modal();
 	});
 	
+	});
 });
 
 
@@ -59,20 +63,20 @@ memory = {
 
 		// 6 by 6
 		$("#6by6").on("click", function(){
-			memory.noOfBoxGame = 36;
+			memory.noOfBoxGame = 24;
 			memory.gameTime = 60 * 2.5;
 			memory.renderGameLayout();
 			$("#modal-message").hide();
-			$("#canvas-game").css({"width" : "70%"});
+			$("#canvas-game").css({"width" : "50%"});
 		});
 
 		// 8 by 8
 		$("#8by8").on("click", function(){
-			memory.noOfBoxGame = 64;
+			memory.noOfBoxGame = 36;
 			memory.gameTime = 60 * 3;
 			memory.renderGameLayout();
 			$("#modal-message").hide();
-			$("#canvas-game").css({"width" : "100%"});
+			$("#canvas-game").css({"width" : "70%"});
 		});
 	},
 	
@@ -178,6 +182,7 @@ memory = {
 						if(memory.correctGuess >= (memory.noOfBoxGame/2)){
 							clearInterval(memory.interval);
 							$('#timer').hide();
+							$('.play').hide();
 							$("#canvas-game, #game-statistic").fadeOut(1000); 
 							$("#game-message").addClass('animated bounceInDown').css('animation-delay', '1s').show(); 
 							$("#no-of-clicks-score").html(memory.clickCounter);

@@ -3,11 +3,16 @@ html,body{
 	padding:0;
 	text-align:center;
 	background-image: url(game-images/hogwarts.jpg);
+	z-index: 1;
+	width: 100%;
+	height: 100%;
 }
+
 
 .menu {
 	font-size:20px;
 }
+
 
 .menu button,
 .btnRestart {
@@ -202,6 +207,19 @@ html,body{
 	border-radius:5px;
 	width:612px;
 	display:none;
+}
+
+#house-message {
+	margin:0 auto;
+	font-size:20px;
+	background:url(game-images/scroll.jpg) no-repeat;
+	background-size: 650px 600px;
+	padding:15px;
+	border:solid 1px #ccc;
+	border-radius:5px;
+	width:612px;
+	display:none;
+	box-sizing: content-box !important;
 }
 
 #modal-message{

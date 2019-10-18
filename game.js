@@ -4,6 +4,17 @@ $(function(){
 	//display menu slection
 	memory.modal();
 
+	$('#menuOption').on("click", function() {
+		clearInterval(memory.interval);
+		$("#game-message").hide();
+		$("#score-message").hide();
+		$("#timer").hide();
+		memory.correctGuess = 0;
+		$("#correct-guess").html(memory.correctGuess);
+		memory.clickCounter = 0;
+		$("#no-of-clicks").html(memory.clickCounter);
+		memory.modal();
+
 	$('.btnRestart').on("click", function() {
 		$("#game-message").hide();
 		$("#score-message").hide();
@@ -33,7 +44,6 @@ memory = {
 	clickImages:  [],
 	interval: 0,
 	highScore: 0,
-	
 
 	// create modal 
 	modal: function() {
@@ -137,7 +147,7 @@ memory = {
 			// On first click ~ start timer, add restart btn
 			if(memory.firstClick){
 				memory.timer(startTimer);
-				//$(".play").show();	
+				$(".play").show();	
 			}
 
 			if(memory.noOfClick <= 1){
@@ -177,9 +187,7 @@ memory = {
 							$("#correct-guess").html(memory.correctGuess);
 							memory.clickCounter = 0;
 							$("#no-of-clicks").html(memory.clickCounter);
-
-							var finish = true;
-							memory.score(finish);
+							memory.score();
 						}
 					}else{
 						//if not the same then close the image cover again.
@@ -201,32 +209,37 @@ memory = {
 		});
 	},
 
-	score: function(finish){
-		var tempScore = 0;
-		if(finish) {
+	score: function(){ 
+		var tempScore = memory.highScore;
+		// 1 point per correct card for easy 
+		// 3 point per correct card for medium 
+		// 5 points per correct card for hard
+		if(memory.noOfBoxGame == 16){
+			tempScore += (memory.correctGuess * 1);
+		} else if(memory.noOfBoxGame == 24){
+			tempScore += (memory.correctGuess * 3);
+		} else if(memory.noOfBoxGame == 36) {
+			tempScore += (memory.correctGuess * 5);
+		}
+
+		// 10 points for clicking less than half of cards
+		if(memory.clickCounter < memory.noOfBoxGame){
+			tempScore += 10;
+		} 
+
+		// 50 points for finishing
+		if(memory.correctGuess === (memory.noOfBoxGame/2)) {
 			tempScore += 50;
 		}
-		if(memory.clickCounter < memory.noOfBoxGame){
-			tempScore += 30;
-		} 
-		if(memory.clickCounter > memory.noOfBoxGame){
-			tempScore += 10
-		}
-
-		if(memory.highScore < tempScore){
-			memory.highScore = tempScore;
-			$('#best-score').html('You\'ve Caught the Golden Snitch! New High Score!');
-			var high_score = memory.highScore;
-			$('.score').html(high_score);
-		} else $('.score').html(tempScore);
-
+		
+		$('.score').html(tempScore);
 	},
 
 	endGame: function(){
 		$("#timer").html("Petrificus Totalus!").css({"float" : "none", "padding-left" : "60px"});
 		$("#canvas-game, #game-statistic").fadeOut(1000); 
 		$("#score-message").addClass('animated bounceInDown').css('animation-delay', '1s').show();
-		memory.score(false);
+		memory.score();
 		memory.clearVariables();
 	},
 
